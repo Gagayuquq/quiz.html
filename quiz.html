@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitch-hiking Across the Sahara Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f4f4f9; color: #333; }
+        .quiz-container { max-width: 600px; margin: 20px auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+        .question { font-weight: bold; margin-bottom: 10px; }
+        .options { list-style-type: none; padding: 0; }
+        .options li { margin: 5px 0; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; margin-top: 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; }
+        button:hover { background-color: #45a049; }
+        .result { margin-top: 20px; font-size: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Hitch-hiking Across the Sahara Quiz</h1>
+        <div id="quiz"></div>
+        <button onclick="submitQuiz()">Submit Quiz</button>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Quiz questions array
+        const questions = [
+            {
+                question: "Who is the author of 'Hitch-hiking Across the Sahara'?",
+                options: ["G.F. Lamb", "Paulo Coelho", "Wilfred Thesiger", "T.E. Lawrence"],
+                answer: "G.F. Lamb"
+            },
+            {
+                question: "Which desert is the focus of the book?",
+                options: ["Gobi", "Sahara", "Arabian", "Kalahari"],
+                answer: "Sahara"
+            },
+            {
+                question: "The book highlights the author's journey using which mode of travel?",
+                options: ["Caravan", "Hitch-hiking", "Airplane", "Train"],
+                answer: "Hitch-hiking"
+            },
+            {
+                question: "What kind of experiences does the author describe?",
+                options: ["Urban life", "Desert challenges", "Sea adventures", "Jungle explorations"],
+                answer: "Desert challenges"
+            },
+            {
+                question: "What characteristic of the Sahara is emphasized?",
+                options: ["Snow-capped mountains", "Dense forests", "Extreme heat and sand dunes", "Waterfalls"],
+                answer: "Extreme heat and sand dunes"
+            }
+        ];
+
+        // Display quiz questions
+        function displayQuiz() {
+            const quizDiv = document.getElementById("quiz");
+            quizDiv.innerHTML = "";
+            questions.forEach((q, index) => {
+                const questionHTML = `
+                    <div class="question">${index + 1}. ${q.question}</div>
+                    <ul class="options">
+                        ${q.options.map(option => `
+                            <li>
+                                <label>
+                                    <input type="radio" name="question${index}" value="${option}">
+                                    ${option}
+                                </label>
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                quizDiv.innerHTML += questionHTML;
+            });
+        }
+
+        // Calculate quiz score
+        function submitQuiz() {
+            let score = 0;
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+                if (selectedOption && selectedOption.value === q.answer) {
+                    score++;
+                }
+            });
+            const resultDiv = document.getElementById("result");
+            resultDiv.innerHTML = `You scored ${score} out of ${questions.length}!`;
+        }
+
+        // Initialize quiz on page load
+        displayQuiz();
+    </script>
+</body>
+</html>
